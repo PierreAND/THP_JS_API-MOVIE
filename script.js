@@ -25,11 +25,11 @@ const getMovie = (searchTerm) => {
 
 const displayMovie = (array) => {
   for (let i = 0; i < array.length; i++) {
-    showMovie(document.querySelector(".card"), array[i]["Title"], array[i]["Year"], array[i]["Poster"], array[i]["imdbID"]);
+    showMovie(document.querySelector(".card"), array[i]["Title"], array[i]["Year"], array[i]["Poster"]);
   };
 }
 
-const showMovie = (element, title, year, image, id) => {
+const showMovie = (element, title, year, image) => {
   element.innerHTML += `
   <div>
     <h2>${title}</h2>
@@ -41,20 +41,15 @@ const showMovie = (element, title, year, image, id) => {
 
   const modal = document.querySelector("#mymodal");
   const readMoreBtn = document.querySelectorAll('.readmorebtn');
-let idList = []
-  
-  idList.push(id)
-  console.log(idList.forEach(id => id))
 
-  readMoreBtn.forEach(button, index => button.addEventListener('click', () => {
-    console.log(button)
-    getPlot();
+  readMoreBtn.forEach(button => button.addEventListener('click', () => {
+    getPlot(id);
     modal.style.display = 'block';
   }));
 };
 
 userSearch();
-intOb();
+//intOb();
 
 const getPlot = (id) => {
 fetch(`https://omdbapi.com/?i=${id}&apikey=25927e05`)
@@ -84,10 +79,4 @@ const showPlot = (image, plot, year, title) => {
     <p>${plot}</p>
   </div>
   `
-  const span = document.querySelector(".close");
-
-  span.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-};
-
+}
